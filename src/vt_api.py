@@ -7,7 +7,7 @@ def check_virustotal(file_hash):
     try:
         url = f"https://www.virustotal.com/api/v3/files/{file_hash}"
         headers = {
-            "x-apikey": VT_AOI_KEY
+            "x-apikey": VT_API_KEY
         }
         response = requests.get(url, headers=headers)
 
