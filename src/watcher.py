@@ -7,6 +7,13 @@ from watchdog.events import FileSystemEventHandler
 from vt_api import check_virustotal, get_threat_level
 from hash_utils import get_file_hash
 
+
+THREAT_LABELS = {
+    0: "Harmless", 
+    1: "Suspicious", 
+    2: "Malicious"
+}
+
 # File event handler
 class FileMonitorHandler(FileSystemEventHandler):
     def on_created(self, event):
@@ -22,6 +29,7 @@ class FileMonitorHandler(FileSystemEventHandler):
             if vt_result:
                 threat_level = get_threat_level(vt_result)
                 logging.info(f"Threat level for {file_path}: {threat_level}")
+                logging.info(f"VT Threat Rating: {THREAT_LABELS.get(threat_level, 'Unknown')} ({threat_level})")
                 logging.info(f"VirusTotal result: {vt_result}")
             else:
                 logging.info(f"No VirusTotal data for {file_path}")
@@ -39,6 +47,7 @@ class FileMonitorHandler(FileSystemEventHandler):
             if vt_result:
                 threat_level = get_threat_level(vt_result)
                 logging.info(f"Threat level for {file_path}: {threat_level}")
+                logging.info(f"VT Threat Rating: {THREAT_LABELS.get(threat_level, 'Unknown')} ({threat_level})")
                 logging.info(f"VirusTotal result: {vt_result}")
             else:
                 logging.info(f"No VirusTotal data for {file_path}")
