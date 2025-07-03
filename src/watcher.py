@@ -16,11 +16,15 @@ class FileMonitorHandler(FileSystemEventHandler):
 
         file_hash = get_file_hash(file_path)
         if file_hash:
+            logging.info(f"Computed SHA256: {file_hash}")
+
             vt_result = check_virustotal(file_hash)
             if vt_result:
-                logging.info(f"VT Scan Result for {file_path}: {vt_result}")
+                threat_level = get_threat_level(vt_result)
+                logging.info(f"Threat level for {file_path}: {threat_level}")
+                logging.info(f"VirusTotal result: {vt_result}")
             else:
-                logging.info(f"No VT data available for: {file_path}")
+                logging.info(f"No VirusTotal data for {file_path}")
     
     def on_modified(self, event):
         if not event.is_directory:
@@ -29,11 +33,15 @@ class FileMonitorHandler(FileSystemEventHandler):
         
         file_hash = get_file_hash(file_path)
         if file_hash:
+            logging.info(f"Computed SHA256: {file_hash}")
+
             vt_result = check_virustotal(file_hash)
             if vt_result:
-                logging.info(f"VT Scan Result for {file_path}: {vt_result}")
+                threat_level = get_threat_level(vt_result)
+                logging.info(f"Threat level for {file_path}: {threat_level}")
+                logging.info(f"VirusTotal result: {vt_result}")
             else:
-                logging.info(f"No VT data available for: {file_path}")
+                logging.info(f"No VirusTotal data for {file_path}")
 
     def on_deleted(self, event):
         if not event.is_directory:
