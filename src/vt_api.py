@@ -1,7 +1,17 @@
 import requests
 import logging
+import os
+from dotenv import load_dotenv
 
-VT_API_KEY = 'REPLACE_WITH_MY_API_KEY'
+# Load enviornment variables from .env file
+load_dotenv()
+
+# Get the API key
+VT_API_KEY = os.getenv("VT_API_KEY")
+
+if not VT_API_KEY:
+    raise ValueError("VirusTotal API key is missing in enviornment variables.")
+print("VirtualTotal API key:", VT_API_KEY)
 
 def check_virustotal(file_hash):
     try:
