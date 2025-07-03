@@ -1,22 +1,39 @@
 import time 
 import hashlib
 import logging
+import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-import os
-from .hash_utils import get_file_hash
+from vt_api import check_virustotal
+from hash_utils import get_file_hash
 
 # File event handler
 class FileMonitorHandler(FileSystemEventHandler):
     def on_created(self, event):
         if not event.is_directory:
-            hash = get_file_hash(event.src_path)
-            logging.info(f"File created: {event.src_path} | SHA256: {hash}")
+            file_path = event.src_path
+            logging.info(f"File created: {file_path}")
+
+        file_hash = get_file_hash(file_path)
+        if file_hash:
+            vt_result = check_virustotal(file_hash)
+            if vt_result:
+                logging.info(f"VT Scan Result for {file_path}: {vt_result}")
+            else:
+                logging.info(f"No VT data available for: {file_path}")
     
     def on_modified(self, event):
         if not event.is_directory:
-            hash = get_file_hash(event.src_path)
-            logging.info(f"File modified: {event.src_path} | SHA256: {hash}")
+            file_path = event.src_path
+            logging.info(f"File modified: {file_path}")
+        
+        file_hash = get_file_hash(file_path)
+        if file_hash:
+            vt_result = check_virustotal(file_hash)
+            if vt_result:
+                logging.info(f"VT Scan Result for {file_path}: {vt_result}")
+            else:
+                logging.info(f"No VT data available for: {file_path}")
 
     def on_deleted(self, event):
         if not event.is_directory:

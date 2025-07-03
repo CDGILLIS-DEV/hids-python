@@ -12,6 +12,8 @@ VT_API_KEY = os.getenv("VT_API_KEY")
 if not VT_API_KEY:
     raise ValueError("VirusTotal API key is missing in enviornment variables.")
 
+print(f"VT_API_KEY loaded: {VT_API_KEY[:8]}...")
+
 def check_virustotal(file_hash):
     try:
         url = f"https://www.virustotal.com/api/v3/files/{file_hash}"
