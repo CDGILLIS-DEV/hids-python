@@ -11,7 +11,6 @@ VT_API_KEY = os.getenv("VT_API_KEY")
 
 if not VT_API_KEY:
     raise ValueError("VirusTotal API key is missing in enviornment variables.")
-print("VirtualTotal API key:", VT_API_KEY)
 
 def check_virustotal(file_hash):
     try:
