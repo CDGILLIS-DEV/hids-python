@@ -4,7 +4,7 @@ import logging
 import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from vt_api import check_virustotal
+from vt_api import check_virustotal, get_threat_level
 from hash_utils import get_file_hash
 
 # File event handler

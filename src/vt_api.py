@@ -41,3 +41,17 @@ def check_virustotal(file_hash):
     except Exception as e:
         logging.error(f"Error checking VirusTotal: {e}")
         return None
+
+def get_threat_level(vt_result: dict) -> int:
+    """
+    Maps VT results to a threat level.
+    0 = harmless, 1 = suspicious, 2 = malicious
+    """
+    if vt_result is None:
+        return 0
+    if vt_result.get("malicious", 0) > 0:
+        return 2
+    elif vt_result.get("suspicious", 0) > 0:
+        return 1
+    else:
+        return 0
