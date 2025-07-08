@@ -1,13 +1,5 @@
-# Sample Hardhat Project
+### Transition form Ethereum to Hedera
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+This project was initially designed to us Ethereum smart contracts (see `/hids-archive/solidity`) but was transitioned to Hedera Hashgraph due to faster consensu finality, lower costs, and direct logging capabilities using HCS (Hedera Consensus Service).
 
-Try running some of the following tasks:
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
